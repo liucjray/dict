@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Dictionary\\ShanbayController@index')
+    ->name('dictionary:shanbay:index');
