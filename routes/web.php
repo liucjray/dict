@@ -11,5 +11,5 @@
 |
 */
 
-Route::get('/', 'Dictionary\\ShanbayController@index')
+Route::get('/', 'DictionaryController@index')
     ->name('dictionary:shanbay:index');

@@ -17,40 +17,56 @@
     </div>
 </div>
 <div class="container">
-    <form method="get" action="{{route('dictionary:shanbay:index')}}">
-        <label for="input_url">
-            請輸入欲查詢的英文單字歐 ^__^
-        </label>
-        <input id="q" class="form-control" type="text" name="q" value="{{$req->q}}" placeholder="word" required>
-        <p class="mt-3">
-            <button class="btn btn-primary" type="submit">Search!</button>
-        </p>
-    </form>
-    <hr>
 
-    @if(isset($resp->msg) && $resp->msg == 'SUCCESS' && $resp->status_code == 0)
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-5">
-                {{$req->q}}
-                @if($resp->data['pron'])
-                    /{{$resp->data['pron']}}/
-                @endif
-            </h1>
-            <h1 class="display-5">
-                @if($resp->data['en_definition']['pos'])
-                    {{$resp->data['en_definition']['pos']}}.
-                @endif
-                {{$resp->data['definition']}}
-            </h1>
-            <p class="lead"></p>
+    <div class="row">
+        <div class="col-8">
+            <form method="get" action="{{route('dictionary:shanbay:index')}}">
+                <label for="input_url">
+                    快快樂樂學英文 ^____^
+                </label>
+                <input id="q" class="form-control" type="text" name="q" value="{{$req->q}}" placeholder="word" required>
+                <p class="mt-3">
+                    <button class="btn btn-primary" type="submit">Search!</button>
+                </p>
+            </form>
+            <hr>
+
+            @if(isset($resp->msg) && $resp->msg == 'SUCCESS' && $resp->status_code == 0)
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                        <h1 class="display-5">
+                            {{$req->q}}
+                            @if($resp->data['pron'])
+                                /{{$resp->data['pron']}}/
+                            @endif
+                        </h1>
+                        <h1 class="display-5">
+                            {{$resp->data['definition']}}
+                        </h1>
+                        <p class="lead"></p>
+                    </div>
+                </div>
+            @elseif(isset($req->q) && isset($resp->msg) && $resp->msg !== 'SUCCESS')
+                <div>{{$resp->msg}}</div>
+            @else
+                <div>May show gun more?</div>
+            @endif
         </div>
+
+        {{--歷史查詢 START--}}
+        <div class="col-4">
+            <div class="list-group">
+                @foreach($qHistory as $q => $times)
+                <a href="{{route('dictionary:shanbay:index', "q=$q")}}" class="list-group-item d-flex justify-content-between align-items-center">
+                    {{$q}}
+                    <span class="badge badge-primary badge-pill">{{$times}}</span>
+                </a>
+                @endforeach
+            </div>
+        </div>
+        {{--歷史查詢 END--}}
+
     </div>
-    @elseif(isset($req->q) && isset($resp->msg))
-        <div>查無單字資料歐 ><" </div>
-    @else
-        <div>滅修乾魔?</div>
-    @endif
 </div>
 
 
@@ -148,7 +164,7 @@
 <!--/.Footer-->
 
 <script>
-    document.getElementById("q").select().focus();
+    document.getElementById("q").select();
 </script>
 </body>
 </html>
