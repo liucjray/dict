@@ -15,7 +15,17 @@ class CookieService
 
     public function get($key = '')
     {
-        return Cookie::get($key);
+        $c = Cookie::get($key);
+
+        // 判斷若有使用 Cookie::queue 方法新增資料，即時更新以利註冊至前台頁面進行顯示
+        if (array_key_exists($key, Cookie::getQueuedCookies())) {
+            $c = Cookie::getQueuedCookies()[$key];
+            $d = explode(' ', $c)[0];
+            list($key2, $c) = explode('=', $d);
+            $c = str_replace(';', '', urldecode($c));
+        }
+
+        return $c;
     }
 
     public function getDictHistoryKey()
@@ -26,9 +36,9 @@ class CookieService
     public function setDictHistory($q = '')
     {
         if ($q) {
-            $qHistory = $this->get($this->getDictHistoryKey());
-            $newCookie = sprintf('%s|%s', $qHistory, $q);
-            $this->set($this->getDictHistoryKey(), $newCookie);
+            $oldCookie = Cookie::get($this->getDictHistoryKey());
+            $newCookie = sprintf('%s|%s', $oldCookie, $q);
+            Cookie::queue($this->getDictHistoryKey(), $newCookie, 30);
         }
     }
 

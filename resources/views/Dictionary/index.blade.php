@@ -56,12 +56,19 @@
         {{--歷史查詢 START--}}
         <div class="col-4">
             <div class="list-group">
-                @foreach($qHistory as $q => $times)
-                <a href="{{route('dictionary:shanbay:index', "q=$q")}}" class="list-group-item d-flex justify-content-between align-items-center">
-                    {{$q}}
-                    <span class="badge badge-primary badge-pill">{{$times}}</span>
-                </a>
-                @endforeach
+                <button type="button" class="list-group-item list-group-item-action active">
+                    歷史查詢
+                </button>
+                @if(count($qHistory) > 0)
+                    @foreach($qHistory as $q => $times)
+                        <a href="{{route('dictionary:shanbay:index', "q=$q")}}" class="list-group-item d-flex justify-content-between align-items-center">
+                            {{$q}}
+                            <span class="badge badge-primary badge-pill">{{$times}}</span>
+                        </a>
+                    @endforeach
+                @else
+                    <li class="list-group-item">請先查詢單字喔 ^___^</li>
+                @endif
             </div>
         </div>
         {{--歷史查詢 END--}}
