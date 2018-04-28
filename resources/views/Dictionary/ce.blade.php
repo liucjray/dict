@@ -10,17 +10,25 @@
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 </head>
 <body>
-<div class="jumbotron text-center">
-    <div class="container">
-        <h1 class="jumbotron-heading">簡易翻譯機</h1>
+<ul class="nav nav-pills justify-content-center align-items-center" style="height:200px;">
+    <li class="nav-item">
+        <a class="nav-link active h-100 d-inline-block" href="{{route('dict:shanbay:ce')}}">英中</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link h-100 d-inline-block" href="{{route('dict:tianhuo:cj')}}">中日/日中</a>
+    </li>
+</ul>
+{{--<div class="jumbotron text-center">--}}
+    {{--<div class="container">--}}
+        {{--<h1 class="jumbotron-heading">簡易翻譯機</h1>--}}
         {{--<p class="lead text-muted">使用扇貝API</p>--}}
-    </div>
-</div>
+    {{--</div>--}}
+{{--</div>--}}
 <div class="container">
 
     <div class="row">
         <div class="col-8">
-            <form method="get" action="{{route('dictionary:shanbay:index')}}">
+            <form method="get" action="{{route('dict:shanbay:ce')}}">
                 <label for="input_url">
                     快快樂樂學英文 ^____^
                 </label>
@@ -61,7 +69,7 @@
                 </button>
                 @if(count($qHistory) > 0)
                     @foreach($qHistory as $q => $times)
-                        <a href="{{route('dictionary:shanbay:index', "q=$q")}}" class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="{{route('dict:shanbay:ce')}}?q={{$q}}" class="list-group-item d-flex justify-content-between align-items-center">
                             {{$q}}
                             <span class="badge badge-primary badge-pill">{{$times}}</span>
                         </a>

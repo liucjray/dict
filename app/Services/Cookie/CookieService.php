@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Cookie;
 
 use Illuminate\Support\Facades\Cookie;
 
@@ -28,23 +28,18 @@ class CookieService
         return $c;
     }
 
-    public function getDictHistoryKey()
-    {
-        return 'q';
-    }
-
     public function setDictHistory($q = '')
     {
         if ($q) {
-            $oldCookie = Cookie::get($this->getDictHistoryKey());
+            $oldCookie = Cookie::get($this->getKey());
             $newCookie = sprintf('%s|%s', $oldCookie, $q);
-            Cookie::queue($this->getDictHistoryKey(), $newCookie, 30);
+            Cookie::queue($this->getKey(), $newCookie, 30);
         }
     }
 
     public function parseDictHistory()
     {
-        $qHistory = $this->get($this->getDictHistoryKey());
+        $qHistory = $this->get($this->getKey());
 
         $qHistory = collect(explode('|', $qHistory));
 

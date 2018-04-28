@@ -4,7 +4,7 @@ namespace App\Services;
 
 use GuzzleHttp\Client;
 
-class ShanbayService
+class ShanBayService
 {
     public function send(array $req)
     {
