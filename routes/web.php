@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', 'DictionaryController@ce')
-    ->name('dict:shanbay:ce');
+Route::get('/{word?}', 'DictionaryController@index')
+    ->name('dict:ts:index');
 
 Route::get('/ce/{word?}', 'DictionaryController@ce')
     ->name('dict:shanbay:ce');
