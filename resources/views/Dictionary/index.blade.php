@@ -26,20 +26,12 @@
                 </label>
                 <input id="q" class="form-control" type="text" name="q" value="{{$req->q}}" placeholder="word" required>
                 <br/>
-                <div class="input-group">
-                    <select name="l" class="custom-select" id="inputGroupSelect04">
-                        <option selected>Language</option>
-                        @foreach($l as $k => $language)
-                            <option
-                                value="{{$k}}"
-                                @if($k == $req->l) selected @endif
-                            >{{$language}}</option>
-                        @endforeach
-                    </select>
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-primary" type="button">Search!</button>
-                    </div>
-                </div>
+                @foreach($l as $k => $language)
+                    <button type="button" class="btn btn-outline-primary"
+                            data-lang="{{$k}}" onclick="send(this)">
+                        {{$language}}
+                    </button>
+                @endforeach
             </form>
             <hr>
 
@@ -128,9 +120,22 @@
 
 </footer>
 <!--/.Footer-->
-
+<script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous">
+</script>
 <script>
     document.getElementById("q").select();
+    function send(e) {
+        let $e = $(e);
+        let lang = $e.data('lang');
+        let $l = $('<input>').css('display', 'none').attr({
+            'type':'text',
+            'name':'l'
+        }).val(lang);
+        $('form').append($l).submit();
+    }
 </script>
 </body>
 </html>

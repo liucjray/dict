@@ -27,10 +27,10 @@ class TranslateShellService
     public function getLanguage()
     {
         return [
-            'en' => '英文 (English)',
-            'ja' => '日文 (Japanese)',
-            'ko' => '韓文 (Korean)',
-            'zh-TW' => '中文 (Chinese)',
+            'zh-TW' => '正體中文 (Chinese)',
+            'ja' => '日本語 (Japanese)',
+            'ko' => '한국어 (Korean)',
+            'en' => 'English',
         ];
     }
 
